@@ -24,6 +24,14 @@ class TestSetNewResult(unittest.TestCase):
             _ = self.sb.set_new_result('Sara')
         self.assertEqual('Could not understand Sara as a winner', str(context.exception))
 
+    def test_reset_scoreboard(self):
+        expected_result = {'black': 0, 'white': 0, 'tie': 0}
+        self.sb.set_new_result('white')
+        self.sb.set_new_result('black')
+        self.sb.set_new_result('tie')
+        new_result = self.sb.reset_scoreboard()
+        self.assertEqual(new_result, expected_result)
+
 
 if __name__ == '__main__':
     unittest.main()

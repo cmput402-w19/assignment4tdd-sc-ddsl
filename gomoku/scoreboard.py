@@ -18,3 +18,6 @@ class Scoreboard:
             raise ValueError('Could not understand ' + winner + ' as a winner')
 
         return self.current_scoreboard
+
+    def reset_scoreboard(self):
+        return self.current_scoreboard
