@@ -8,15 +8,15 @@ class TestSetNewResult(unittest.TestCase):
         self.sb = Scoreboard()
 
     def test_set_new_result(self):
-        prev_score = self.sb.result['black']
+        prev_score = self.sb.current_scoreboard['black']
         new_result = self.sb.set_new_result('black')
         self.assertEqual(prev_score + 1, new_result['black'])
 
-        prev_score = self.sb.result['white']
+        prev_score = self.sb.current_scoreboard['white']
         new_result = self.sb.set_new_result('white')
         self.assertEqual(prev_score + 1, new_result['white'])
 
-        prev_score = self.sb.result['tie']
+        prev_score = self.sb.current_scoreboard['tie']
         new_result = self.sb.set_new_result('tie')
         self.assertEqual(prev_score + 1, new_result['tie'])
 
