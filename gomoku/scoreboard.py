@@ -20,5 +20,8 @@ class Scoreboard:
         return self.current_scoreboard
 
     def reset_scoreboard(self):
+        """
+          :return: The scoreboard in its initial state
+        """
         self.current_scoreboard = {'black': 0, 'white': 0, 'tie': 0}
         return self.current_scoreboard
