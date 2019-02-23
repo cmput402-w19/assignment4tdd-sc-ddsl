@@ -1,0 +1,17 @@
+language: python
+python:
+  - "3.6"
+
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+  - pip install codecov
+
+before_install:
+  - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
+
+script:
+  - coverage run -a ./test/scoreboardTest.py
+
+after_success:
+  - codecov
