@@ -14,6 +14,11 @@ class TestChessboard(unittest.TestCase):
             self.assertEqual(19, len(self.cb.chessboard_matrix[i]))
             self.assertEqual(0, sum(self.cb.chessboard_matrix[i]))
 
+    def test_get_current_player(self):
+        self.cb.current_layer = "White"
+        self.assertEqual("Black", self.cb.get_current_player())
+        self.assertEqual("White", self.cb.get_current_player())
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -14,3 +14,6 @@ class Chessboard:
         for i in range(19):
             a_row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             self.chessboard_matrix.append(a_row)
+
+    def get_current_player(self):
+        return self.current_player
