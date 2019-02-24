@@ -23,3 +23,6 @@ class Chessboard:
         """
         self.current_player = "White" if self.current_player == "Black" else "Black"
         return self.current_player
+
+    def move(self, x, y, player):
+        pass
