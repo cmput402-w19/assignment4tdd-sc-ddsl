@@ -16,4 +16,5 @@ class Chessboard:
             self.chessboard_matrix.append(a_row)
 
     def get_current_player(self):
+        self.current_player="White" if self.current_player=="Black" else "Black"
         return self.current_player
