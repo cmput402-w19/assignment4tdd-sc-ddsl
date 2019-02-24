@@ -35,3 +35,6 @@ class GameLogic:
             return True
         else:
             return False
+
+    def check_vertical(self, chessboard_matrix, last_move_row, last_move_col):
+        return False
