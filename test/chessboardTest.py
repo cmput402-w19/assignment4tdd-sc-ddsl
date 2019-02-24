@@ -25,6 +25,7 @@ class TestChessboard(unittest.TestCase):
         self.assertEqual(1, self.cb.chessboard_matrix[0][0])
         self.cb.move(18, 18, "White")
         self.assertEqual(2, self.cb.chessboard_matrix[18][18])
+        self.assertRaises(self.cb.IllegalCoordinateException, self.cb.move, 1.6, 0.2, "White")
         self.assertRaises(self.cb.IllegalMoveException, self.cb.move, 0, 0, "White")
         self.assertRaises(self.cb.IllegalCoordinateException, self.cb.move, 19, 0, "White")
         self.assertRaises(self.cb.IllegalPlayerException, self.cb.move, 10, 10, "None")

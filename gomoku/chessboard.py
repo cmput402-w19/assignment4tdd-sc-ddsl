@@ -1,16 +1,16 @@
 class Chessboard:
 
     class IllegalCoordinateException(Exception):
-        def __init__(self):
-            Exception.__init__(self)
+        def __init__(self, err="Illegal coordinate"):
+            Exception.__init__(self, err)
 
     class IllegalPlayerException(Exception):
-        def __init__(self):
-            Exception.__init__(self)
+        def __init__(self, err="Illegal player"):
+            Exception.__init__(self, err)
 
     class IllegalMoveException(Exception):
-        def __init__(self):
-            Exception.__init__(self)
+        def __init__(self, err="Occupied place"):
+            Exception.__init__(self, err)
 
     def __init__(self):
         self.current_player = "None"
@@ -37,6 +37,10 @@ class Chessboard:
         return self.current_player
 
     def move(self, x, y, player):
+        """
+
+        Place a stone according to the coordinate and player
+        """
         if type(x) != int or type(y) != int:
             raise self.IllegalCoordinateException
         if x < 0 or x > 18 or y < 0 or y > 18:
