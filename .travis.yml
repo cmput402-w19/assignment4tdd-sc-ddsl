@@ -12,6 +12,7 @@ before_install:
 
 script:
   - coverage run -a ./test/scoreboardTest.py
+  - coverage run -a ./test/chessboardTest.py
 
 after_success:
   - codecov
