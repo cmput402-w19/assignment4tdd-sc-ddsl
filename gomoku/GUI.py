@@ -105,6 +105,7 @@ class GUI(QtWidgets.QWidget):
 
         self.admit_defeat_button = QtWidgets.QPushButton('Admit Defeat', self)
         self.admit_defeat_button.setGeometry(650, 380, 170, 50)
+        self.admit_defeat_button.clicked.connect(self.on_admit_defeat_click)
         self.admit_defeat_button.setStyleSheet(self.button_style)
 
         self.tie_button = QtWidgets.QPushButton('Tie the game', self)
@@ -139,7 +140,9 @@ class GUI(QtWidgets.QWidget):
         self.setup_new_game()
 
     def on_admit_defeat_click(self):
-        pass
+        winner = "White" if self.current_player == "Black" else "Black"
+        self.setup_new_game()
+        self.results = self.score_board.set_new_result(winner)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
