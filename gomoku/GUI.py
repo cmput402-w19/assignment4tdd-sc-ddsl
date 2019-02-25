@@ -92,6 +92,7 @@ class GUI(QtWidgets.QWidget):
                 name = self.int_to_str[i] + '_' + self.int_to_str[j]
                 exec('self.' + name + '= QLabel_new(self)')
                 exec('self.' + name + '.setGeometry(QtCore.QRect(21+width*j, 21+width*i, width+bias, width+bias))')
+                exec('self.' + name + ".clicked.connect(lambda self=self: self.player_clicked('" + name + "'))")
 
         self.reset_button = QtWidgets.QPushButton('Reset Game', self)
         self.reset_button.setGeometry(650, 240, 170, 50)
@@ -151,6 +152,9 @@ class GUI(QtWidgets.QWidget):
         if self.show_winner('Game ended in a tie!'):
             self.setup_new_game()
             self.results = self.score_board.set_new_result('Tie')
+
+    def player_clicked(self, label_name):
+        pass
 
     def show_winner(self, message):
         self.buttonReply = QtWidgets.QMessageBox.information(self, "Result", message,

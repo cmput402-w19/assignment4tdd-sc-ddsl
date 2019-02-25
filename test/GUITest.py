@@ -130,5 +130,119 @@ class TestGUI(unittest.TestCase):
         self.assertEqual(self.ex.results, {'Black': 0, 'White': 0, 'Tie': 1})
         self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
 
+    @patch('gomoku.GUI.Scoreboard')
+    @patch('gomoku.GUI.Chessboard')
+    @patch('gomoku.GUI.GameLogic')
+    @patch('gomoku.GUI.GUI.show_winner')
+    def test_player_clicked(self, mock_show_winner, mock_game_logic, mock_chessboard, mock_scoreboard):
+        app = QtWidgets.QApplication(sys.argv)
+        self.ex = GUI()
+
+        # test num 1
+        new_board = np.zeros((19, 19), dtype=int).tolist()
+        new_board[0][0] = 1
+        self.ex.current_player = 'Black'
+        self.ex.board_matrix = self.zero_board
+        self.ex.results = {'Black': 0, 'White': 0, 'Tie': 0}
+        mock_chessboard_instance = mock_chessboard.return_value
+        mock_chessboard_instance.chessboard_matrix = new_board
+        mock_chessboard_instance.get_current_player.return_value = 'White'
+
+        mock_game_logic_instance = mock_game_logic.return_value
+        mock_game_logic_instance.has_winner.return_value = False
+
+        mock_scoreboard_instance = mock_scoreboard.return_value
+        mock_scoreboard_instance.set_new_result.return_value = {'Black': 0, 'White': 0, 'Tie': 0}
+
+        mock_show_winner.return_value = True
+
+        QtTest.QTest.mouseClick(self.ex.zero_zero, QtCore.Qt.LeftButton)
+
+        self.assertEqual(self.ex.current_player, 'White')
+        self.assertEqual(self.ex.board_matrix, new_board)
+        self.assertEqual(self.ex.results, {'Black': 0, 'White': 0, 'Tie': 0})
+        self.assertEqual(self.ex.turn_label.text(), "White's turn ")
+
+        # test num 2
+        new_board = np.zeros((19, 19), dtype=int).tolist()
+        new_board[18][18] = 1
+        self.ex.current_player = 'White'
+        self.ex.board_matrix = self.zero_board
+        self.ex.results = {'Black': 0, 'White': 0, 'Tie': 0}
+        mock_chessboard_instance = mock_chessboard.return_value
+        mock_chessboard_instance.chessboard_matrix = new_board
+        mock_chessboard_instance.current_player = 'Black'
+        mock_chessboard_instance.get_current_player.return_value = 'Black'
+
+        mock_game_logic_instance = mock_game_logic.return_value
+        mock_game_logic_instance.has_winner.return_value = True
+        mock_game_logic_instance.winner = 'White'
+
+        mock_scoreboard_instance = mock_scoreboard.return_value
+        mock_scoreboard_instance.set_new_result.return_value = {'Black': 0, 'White': 1, 'Tie': 0}
+
+        mock_show_winner.return_value = True
+
+        QtTest.QTest.mouseClick(self.ex.eighteen_eighteen, QtCore.Qt.LeftButton)
+
+        self.assertEqual(self.ex.current_player, 'Black')
+        self.assertEqual(self.ex.board_matrix, new_board)
+        self.assertEqual(self.ex.results, {'Black': 0, 'White': 1, 'Tie': 0})
+        self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
+
+        # test num 3
+        new_board = np.zeros((19, 19), dtype=int).tolist()
+        new_board[0][18] = 1
+        self.ex.current_player = 'White'
+        self.ex.board_matrix = self.zero_board
+        self.ex.results = {'Black': 0, 'White': 0, 'Tie': 0}
+        mock_chessboard_instance = mock_chessboard.return_value
+        mock_chessboard_instance.chessboard_matrix = new_board
+        mock_chessboard_instance.current_player = 'Black'
+        mock_chessboard_instance.get_current_player.return_value = 'Black'
+
+        mock_game_logic_instance = mock_game_logic.return_value
+        mock_game_logic_instance.has_winner.return_value = True
+        mock_game_logic_instance.winner = 'White'
+
+        mock_scoreboard_instance = mock_scoreboard.return_value
+        mock_scoreboard_instance.set_new_result.return_value = {'Black': 0, 'White': 1, 'Tie': 0}
+
+        mock_show_winner.return_value = True
+
+        QtTest.QTest.mouseClick(self.ex.zero_eighteen, QtCore.Qt.LeftButton)
+
+        self.assertEqual(self.ex.current_player, 'Black')
+        self.assertEqual(self.ex.board_matrix, new_board)
+        self.assertEqual(self.ex.results, {'Black': 0, 'White': 1, 'Tie': 0})
+        self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
+
+        # test num 4
+        new_board = np.zeros((19, 19), dtype=int).tolist()
+        new_board[18][0] = 1
+        self.ex.current_player = 'White'
+        self.ex.board_matrix = self.zero_board
+        self.ex.results = {'Black': 0, 'White': 0, 'Tie': 0}
+        mock_chessboard_instance = mock_chessboard.return_value
+        mock_chessboard_instance.chessboard_matrix = new_board
+        mock_chessboard_instance.current_player = 'Black'
+        mock_chessboard_instance.get_current_player.return_value = 'Black'
+
+        mock_game_logic_instance = mock_game_logic.return_value
+        mock_game_logic_instance.has_winner.return_value = True
+        mock_game_logic_instance.winner = 'White'
+
+        mock_scoreboard_instance = mock_scoreboard.return_value
+        mock_scoreboard_instance.set_new_result.return_value = {'Black': 0, 'White': 1, 'Tie': 0}
+
+        mock_show_winner.return_value = True
+
+        QtTest.QTest.mouseClick(self.ex.eighteen_zero, QtCore.Qt.LeftButton)
+
+        self.assertEqual(self.ex.current_player, 'Black')
+        self.assertEqual(self.ex.board_matrix, new_board)
+        self.assertEqual(self.ex.results, {'Black': 0, 'White': 1, 'Tie': 0})
+        self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
+
 if __name__ == '__main__':
     unittest.main()
