@@ -124,16 +124,10 @@ class GameLogic:
             return False
 
     def has_winner(self, chessboard_matrix, last_move_row, last_move_col):
-        if self.check_horizontal(chessboard_matrix, last_move_row, last_move_col):
-            self.winner = "Black" if chessboard_matrix[last_move_row][last_move_col] == 1 else "White"
-            return True
-        elif self.check_vertical(chessboard_matrix, last_move_row, last_move_col):
-            self.winner = "Black" if chessboard_matrix[last_move_row][last_move_col] == 1 else "White"
-            return True
-        elif self.check_upper_diagonal(chessboard_matrix, last_move_row, last_move_col):
-            self.winner = "Black" if chessboard_matrix[last_move_row][last_move_col] == 1 else "White"
-            return True
-        elif self.check_lower_diagonal(chessboard_matrix, last_move_row, last_move_col):
+        if (self.check_horizontal(chessboard_matrix, last_move_row, last_move_col)
+                or self.check_vertical(chessboard_matrix, last_move_row, last_move_col)
+                or self.check_upper_diagonal(chessboard_matrix, last_move_row, last_move_col)
+                or self.check_lower_diagonal(chessboard_matrix, last_move_row, last_move_col)):
             self.winner = "Black" if chessboard_matrix[last_move_row][last_move_col] == 1 else "White"
             return True
         else:
