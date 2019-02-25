@@ -82,7 +82,8 @@ class TestGUI(unittest.TestCase):
 
     @patch('gomoku.GUI.Scoreboard')
     @patch('gomoku.GUI.Chessboard')
-    def test_on_admit_defeat_click(self, mock_chessboard, mock_scoreboard):
+    @patch('gomoku.GUI.GUI.show_winner')
+    def test_on_admit_defeat_click(self, mock_show_winner, mock_chessboard, mock_scoreboard):
         app = QtWidgets.QApplication(sys.argv)
         self.ex = GUI()
 
@@ -93,6 +94,8 @@ class TestGUI(unittest.TestCase):
         mock_scoreboard_instance = mock_scoreboard.return_value
         mock_scoreboard_instance.reset_scoreboard.return_value = self.zero_result
         mock_scoreboard_instance.set_new_result.return_value = {'Black': 0, 'White': 1, 'Tie': 0}
+
+        mock_show_winner.return_value = True
 
         self.ex.current_player = 'Black'
         QtTest.QTest.mouseClick(self.ex.admit_defeat_button, QtCore.Qt.LeftButton)

@@ -141,8 +141,16 @@ class GUI(QtWidgets.QWidget):
 
     def on_admit_defeat_click(self):
         winner = "White" if self.current_player == "Black" else "Black"
-        self.setup_new_game()
-        self.results = self.score_board.set_new_result(winner)
+        message = winner + ' won!'
+        if self.show_winner(message):
+            self.setup_new_game()
+            self.results = self.score_board.set_new_result(winner)
+
+    def show_winner(self, message):
+        self.buttonReply = QtWidgets.QMessageBox.information(self, "Result", message,
+                                                        QtWidgets.QMessageBox.Ok)
+        return self.buttonReply == QtWidgets.QMessageBox.Ok
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
