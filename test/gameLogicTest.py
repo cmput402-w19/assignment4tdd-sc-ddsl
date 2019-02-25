@@ -94,6 +94,36 @@ class TestGameLogic(unittest.TestCase):
         self.assertEqual(False, self.gl.check_lower_diagonal(chessboard_matrix, 0, 0))
         self.assertEqual(False, self.gl.check_lower_diagonal(chessboard_matrix, 1, 0))
 
+    def test_check_upper_diagonal(self):
+        chessboard_matrix = [
+            [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+        self.assertEqual(True, self.gl.check_upper_diagonal(chessboard_matrix, 0, 0))
+        self.assertEqual(True, self.gl.check_upper_diagonal(chessboard_matrix, 1, 1))
+        self.assertEqual(True, self.gl.check_upper_diagonal(chessboard_matrix, 4, 4))
+        self.assertEqual(True, self.gl.check_upper_diagonal(chessboard_matrix, 0, 14))
+        self.assertEqual(True, self.gl.check_upper_diagonal(chessboard_matrix, 1, 15))
+        self.assertEqual(True, self.gl.check_upper_diagonal(chessboard_matrix, 4, 18))
+        self.assertEqual(False, self.gl.check_upper_diagonal(chessboard_matrix, 2, 1))
+        self.assertEqual(False, self.gl.check_upper_diagonal(chessboard_matrix, 0, 1))
+
 
 if __name__ == '__main__':
     unittest.main()
