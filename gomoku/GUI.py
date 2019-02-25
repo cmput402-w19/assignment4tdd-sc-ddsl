@@ -136,7 +136,7 @@ class GUI(QtWidgets.QWidget):
         self.results = self.score_board.reset_scoreboard()
 
     def on_new_game_click(self):
-        pass
+        self.setup_new_game()
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
