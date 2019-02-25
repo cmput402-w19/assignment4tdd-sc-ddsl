@@ -18,8 +18,8 @@ class TestGUI(unittest.TestCase):
         self.ex = GUI()
 
         mock_chessboard_instance = mock_chessboard.return_value
-        mock_chessboard_instance.chessboardMatrix = self.zero_board
-        mock_chessboard_instance.currentPlayer = 'Black'
+        mock_chessboard_instance.chessboard_matrix = self.zero_board
+        mock_chessboard_instance.current_player = 'Black'
 
         mock_scoreboard_instance = mock_scoreboard.return_value
         mock_scoreboard_instance.reset_scoreboard.return_value = self.zero_result

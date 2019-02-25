@@ -115,12 +115,21 @@ class GUI(QtWidgets.QWidget):
         self.game_logic = GameLogic()
 
         self.chessboard.init_chessboard()
-        self.current_player = self.chessboard.currentPlayer
-        self.board_matrix = self.chessboard.chessboardMatrix
+        self.current_player = self.chessboard.current_player
+        self.board_matrix = self.chessboard.chessboard_matrix
         self.results = self.score_board.reset_scoreboard()
 
     def on_reset_click(self):
-        pass
+        self.chessboard.init_chessboard()
+        self.board_matrix = self.chessboard.chessboard_matrix
+        self.current_player = self.chessboard.current_player
+        if self.current_player == 'Black':
+            self.turn_label.setText("Black's turn ")
+        elif self.current_player == 'White':
+            self.turn_label.setText("White's turn ")
+        else:
+            raise ValueError('invalid color')
+        self.results = self.score_board.reset_scoreboard()
 
 
 if __name__ == '__main__':
