@@ -10,10 +10,19 @@ install:
 before_install:
   - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
 
+services:
+  - xvfb
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+
 script:
   - coverage run -a ./test/scoreboardTest.py
   - coverage run -a ./test/chessboardTest.py
   - coverage run -a ./test/gameLogicTest.py
+  - coverage run -a ./test/GUITest.py
 
 after_success:
   - codecov
