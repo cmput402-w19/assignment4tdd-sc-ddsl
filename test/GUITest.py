@@ -138,7 +138,7 @@ class TestGUI(unittest.TestCase):
         app = QtWidgets.QApplication(sys.argv)
         self.ex = GUI()
 
-        # test num 1
+        # testing with black on 0,0
         new_board = np.zeros((19, 19), dtype=int).tolist()
         new_board[0][0] = 1
         self.ex.current_player = 'Black'
@@ -163,7 +163,7 @@ class TestGUI(unittest.TestCase):
         self.assertEqual(self.ex.results, {'Black': 0, 'White': 0, 'Tie': 0})
         self.assertEqual(self.ex.turn_label.text(), "White's turn ")
 
-        # test num 2
+        # testing with white on 18,18
         new_board = np.zeros((19, 19), dtype=int).tolist()
         new_board[18][18] = 1
         self.ex.current_player = 'White'
@@ -217,7 +217,7 @@ class TestGUI(unittest.TestCase):
         self.assertEqual(self.ex.results, {'Black': 0, 'White': 1, 'Tie': 0})
         self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
 
-        # test num 4
+        # testing with white on 18,0
         new_board = np.zeros((19, 19), dtype=int).tolist()
         new_board[18][0] = 1
         self.ex.current_player = 'White'
@@ -243,6 +243,12 @@ class TestGUI(unittest.TestCase):
         self.assertEqual(self.ex.board_matrix, new_board)
         self.assertEqual(self.ex.results, {'Black': 0, 'White': 1, 'Tie': 0})
         self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
+
+        # test current_player = 'Sara'
+        with self.assertRaises(ValueError) as context:
+            mock_chessboard_instance.current_player = 'Sara'
+            self.ex.setup_new_game()
+        self.assertEqual('invalid color', str(context.exception))
 
 
 if __name__ == '__main__':
