@@ -219,10 +219,3 @@ class GUI(QtWidgets.QWidget):
             for j in range(self.board_size[1]):
                 name = self.int_to_str[i] + '_' + self.int_to_str[j]
                 exec('self.' + name + '.clear()')
-
-
-if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    ex = GUI()
-    ex.show()
-    sys.exit(app.exec_())
