@@ -108,7 +108,7 @@ class TestGUI(unittest.TestCase):
     @patch('gomoku.GUI.Scoreboard')
     @patch('gomoku.GUI.Chessboard')
     @patch('gomoku.GUI.GUI.show_winner')
-    def test_on_admit_defeat_click(self, mock_show_winner, mock_chessboard, mock_scoreboard):
+    def test_on_tie_click(self, mock_show_winner, mock_chessboard, mock_scoreboard):
         app = QtWidgets.QApplication(sys.argv)
         self.ex = GUI()
 
