@@ -30,6 +30,38 @@ class TestGUI(unittest.TestCase):
         self.assertEqual(self.ex.current_player, 'Black')
         self.assertEqual(self.ex.board_matrix, self.zero_board)
         self.assertEqual(self.ex.results, self.zero_result)
+        self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
+
+    @patch('gomoku.GUI.Scoreboard')
+    @patch('gomoku.GUI.Chessboard')
+    def test_setup_new_game(self, mock_chessboard, mock_scoreboard):
+        # test current_player = 'Black'
+        app = QtWidgets.QApplication(sys.argv)
+        self.ex = GUI()
+
+        mock_chessboard_instance = mock_chessboard.return_value
+        mock_chessboard_instance.chessboard_matrix = self.zero_board
+        mock_chessboard_instance.current_player = 'Black'
+
+        mock_scoreboard_instance = mock_scoreboard.return_value
+        mock_scoreboard_instance.reset_scoreboard.return_value = self.zero_result
+
+        self.ex.setup_new_game()
+        self.assertEqual(self.ex.current_player, 'Black')
+        self.assertEqual(self.ex.board_matrix, self.zero_board)
+        self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
+
+        # test current_player = 'White'
+        mock_chessboard_instance.current_player = 'White'
+        self.ex.setup_new_game()
+        self.assertEqual(self.ex.current_player, 'White')
+        self.assertEqual(self.ex.turn_label.text(), "White's turn ")
+
+        # test current_player = 'Sara'
+        with self.assertRaises(ValueError) as context:
+            mock_chessboard_instance.current_player = 'Sara'
+            self.ex.setup_new_game()
+        self.assertEqual('invalid color', str(context.exception))
 
     @patch('gomoku.GUI.Chessboard')
     def test_on_new_game_click(self, mock_chessboard):
