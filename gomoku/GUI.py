@@ -100,6 +100,7 @@ class GUI(QtWidgets.QWidget):
 
         self.new_game_button = QtWidgets.QPushButton('New Game', self)
         self.new_game_button.setGeometry(650, 310, 170, 50)
+        self.new_game_button.clicked.connect(self.on_new_game_click)
         self.new_game_button.setStyleSheet(self.button_style)
 
         self.admit_defeat_button = QtWidgets.QPushButton('Admit Defeat', self)
@@ -134,6 +135,8 @@ class GUI(QtWidgets.QWidget):
         self.setup_new_game()
         self.results = self.score_board.reset_scoreboard()
 
+    def on_new_game_click(self):
+        pass
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
