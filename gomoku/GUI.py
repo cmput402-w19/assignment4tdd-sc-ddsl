@@ -121,6 +121,7 @@ class GUI(QtWidgets.QWidget):
         self.current_player = self.chessboard.current_player
         self.board_matrix = self.chessboard.chessboard_matrix
         self.results = self.score_board.reset_scoreboard()
+        self.show_scores()
 
     def setup_new_game(self):
         self.chessboard.init_chessboard()
@@ -136,9 +137,12 @@ class GUI(QtWidgets.QWidget):
     def on_reset_click(self):
         self.setup_new_game()
         self.results = self.score_board.reset_scoreboard()
+        self.show_game(self.board_matrix)
+        self.show_scores()
 
     def on_new_game_click(self):
         self.setup_new_game()
+        self.show_game(self.board_matrix)
 
     def on_admit_defeat_click(self):
         winner = "White" if self.current_player == "Black" else "Black"
@@ -146,11 +150,15 @@ class GUI(QtWidgets.QWidget):
         if self.show_winner(message):
             self.setup_new_game()
             self.results = self.score_board.set_new_result(winner)
+            self.show_game(self.board_matrix)
+            self.show_scores()
 
     def on_tie_click(self):
         if self.show_winner('Game ended in a tie!'):
             self.setup_new_game()
             self.results = self.score_board.set_new_result('Tie')
+            self.show_game(self.board_matrix)
+            self.show_scores()
 
     def player_clicked(self, label_name):
         pattern = re.compile(r'(.*)_(.*)')
@@ -171,14 +179,46 @@ class GUI(QtWidgets.QWidget):
             if self.game_logic.has_winner(self.board_matrix, row, column):
                 message = self.game_logic.winner + ' won!'
                 self.results = self.score_board.set_new_result(self.game_logic.winner)
+                self.show_scores()
                 if self.show_winner(message):
                     self.setup_new_game()
+                    self.show_game(self.board_matrix)
                     return
+            self.show_game(self.board_matrix)
 
     def show_winner(self, message):
         self.buttonReply = QtWidgets.QMessageBox.information(self, "Result", message,
                                                         QtWidgets.QMessageBox.Ok)
         return self.buttonReply == QtWidgets.QMessageBox.Ok
+
+    def show_scores(self):
+        self.white_Score.setText("White's Wins: " + str(self.results['White']))
+        self.black_Score.setText("Black's Wins: " + str(self.results['Black']))
+        self.tie_Score.setText("Ties: " + str(self.results['Tie']))
+
+    def show_game(self, board_matrix):
+        black_pixmap = QPixmap('../pics/black.png')
+        white_pixmap = QPixmap('../pics/white.png')
+        self.clear_board()
+        for i in range(self.board_size[0]):
+            for j in range(self.board_size[1]):
+                name = self.int_to_str[i] + '_' + self.int_to_str[j]
+                if board_matrix[i][j] == 1:
+                    exec('pixmap_smaller = QPixmap.scaled(black_pixmap, self.' + name + '.width()-2, self.'
+                         + name + '.height()-2)')
+                    exec('self.' + name + '.setAlignment(QtCore.Qt.AlignCenter)')
+                    exec('self.' + name + '.setPixmap(pixmap_smaller)')
+                elif board_matrix[i][j] == 2:
+                    exec(
+                        'pixmap_smaller = QPixmap.scaled(white_pixmap, self.' + name + '.width()-4, self.' + name + '.height()-4)')
+                    exec('self.' + name + '.setAlignment(QtCore.Qt.AlignCenter)')
+                    exec('self.' + name + '.setPixmap(pixmap_smaller)')
+
+    def clear_board(self):
+        for i in range(self.board_size[0]):
+            for j in range(self.board_size[1]):
+                name = self.int_to_str[i] + '_' + self.int_to_str[j]
+                exec('self.' + name + '.clear()')
 
 
 if __name__ == '__main__':
