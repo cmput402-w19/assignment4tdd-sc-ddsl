@@ -8,27 +8,27 @@ class TestSetNewResult(unittest.TestCase):
         self.sb = Scoreboard()
 
     def test_set_new_result(self):
-        prev_score = self.sb.current_scoreboard['black']
-        new_scoreboard = self.sb.set_new_result('black')
-        self.assertEqual(prev_score + 1, new_scoreboard['black'])
+        prev_score = self.sb.current_scoreboard['Black']
+        new_scoreboard = self.sb.set_new_result('Black')
+        self.assertEqual(prev_score + 1, new_scoreboard['Black'])
 
-        prev_score = self.sb.current_scoreboard['white']
-        new_scoreboard = self.sb.set_new_result('white')
-        self.assertEqual(prev_score + 1, new_scoreboard['white'])
+        prev_score = self.sb.current_scoreboard['White']
+        new_scoreboard = self.sb.set_new_result('White')
+        self.assertEqual(prev_score + 1, new_scoreboard['White'])
 
-        prev_score = self.sb.current_scoreboard['tie']
-        new_scoreboard = self.sb.set_new_result('tie')
-        self.assertEqual(prev_score + 1, new_scoreboard['tie'])
+        prev_score = self.sb.current_scoreboard['Tie']
+        new_scoreboard = self.sb.set_new_result('Tie')
+        self.assertEqual(prev_score + 1, new_scoreboard['Tie'])
 
         with self.assertRaises(ValueError) as context:
             _ = self.sb.set_new_result('Sara')
         self.assertEqual('Could not understand Sara as a winner', str(context.exception))
 
     def test_reset_scoreboard(self):
-        expected_scoreboard = {'black': 0, 'white': 0, 'tie': 0}
-        self.sb.set_new_result('white')
-        self.sb.set_new_result('black')
-        self.sb.set_new_result('tie')
+        expected_scoreboard = {'Black': 0, 'White': 0, 'Tie': 0}
+        self.sb.set_new_result('White')
+        self.sb.set_new_result('Black')
+        self.sb.set_new_result('Tie')
         new_scoreboard = self.sb.reset_scoreboard()
         self.assertEqual(new_scoreboard, expected_scoreboard)
 
