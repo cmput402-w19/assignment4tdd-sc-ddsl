@@ -110,6 +110,7 @@ class GUI(QtWidgets.QWidget):
 
         self.tie_button = QtWidgets.QPushButton('Tie the game', self)
         self.tie_button.setGeometry(650, 450, 170, 50)
+        self.admit_defeat_button.clicked.connect(self.on_tie_click)
         self.tie_button.setStyleSheet(self.button_style)
 
         self.chessboard = Chessboard()
@@ -145,6 +146,9 @@ class GUI(QtWidgets.QWidget):
         if self.show_winner(message):
             self.setup_new_game()
             self.results = self.score_board.set_new_result(winner)
+
+    def on_tie_click(self):
+        pass
 
     def show_winner(self, message):
         self.buttonReply = QtWidgets.QMessageBox.information(self, "Result", message,
