@@ -138,6 +138,9 @@ class GUI(QtWidgets.QWidget):
     def on_new_game_click(self):
         self.setup_new_game()
 
+    def on_admit_defeat_click(self):
+        pass
+
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     ex = GUI()

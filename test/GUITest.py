@@ -80,6 +80,27 @@ class TestGUI(unittest.TestCase):
         self.assertEqual(self.ex.board_matrix, self.zero_board)
         self.assertEqual(self.ex.results, prev_result)
 
+    @patch('gomoku.GUI.Scoreboard')
+    @patch('gomoku.GUI.Chessboard')
+    def test_on_admit_defeat_click(self, mock_chessboard, mock_scoreboard):
+        app = QtWidgets.QApplication(sys.argv)
+        self.ex = GUI()
+
+        mock_chessboard_instance = mock_chessboard.return_value
+        mock_chessboard_instance.chessboard_matrix = self.zero_board
+        mock_chessboard_instance.current_player = 'Black'
+
+        mock_scoreboard_instance = mock_scoreboard.return_value
+        mock_scoreboard_instance.reset_scoreboard.return_value = self.zero_result
+        mock_scoreboard_instance.set_new_result.return_value = {'Black': 0, 'White': 1, 'Tie': 0}
+
+        self.ex.current_player = 'Black'
+        QtTest.QTest.mouseClick(self.ex.admit_defeat_button, QtCore.Qt.LeftButton)
+
+        self.assertEqual(self.ex.current_player, 'Black')
+        self.assertEqual(self.ex.board_matrix, self.zero_board)
+        self.assertEqual(self.ex.results, {'Black': 0, 'White': 1, 'Tie': 0})
+        self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
 
 if __name__ == '__main__':
     unittest.main()
