@@ -119,7 +119,7 @@ class GUI(QtWidgets.QWidget):
         self.board_matrix = self.chessboard.chessboard_matrix
         self.results = self.score_board.reset_scoreboard()
 
-    def on_reset_click(self):
+    def setup_new_game(self):
         self.chessboard.init_chessboard()
         self.board_matrix = self.chessboard.chessboard_matrix
         self.current_player = self.chessboard.current_player
@@ -129,6 +129,9 @@ class GUI(QtWidgets.QWidget):
             self.turn_label.setText("White's turn ")
         else:
             raise ValueError('invalid color')
+
+    def on_reset_click(self):
+        self.setup_new_game()
         self.results = self.score_board.reset_scoreboard()
 
 
