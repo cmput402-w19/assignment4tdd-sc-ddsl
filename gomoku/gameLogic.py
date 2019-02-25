@@ -68,3 +68,6 @@ class GameLogic:
             return True
         else:
             return False
+
+    def check_lower_diagonal(self, chessboardMatrix, lastMoveRow, lastMoveCol):
+        return False
