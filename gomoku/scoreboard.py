@@ -1,19 +1,19 @@
 class Scoreboard:
 
     def __init__(self):
-        self.current_scoreboard = {'black': 0, 'white': 0, 'tie': 0}
+        self.current_scoreboard = {'Black': 0, 'White': 0, 'Tie': 0}
 
     def set_new_result(self, winner):
         """
         :param winner: A string showing the winner
         :return: Changed scoreboard
         """
-        if winner == 'black':
-            self.current_scoreboard['black'] += 1
-        elif winner == 'white':
-            self.current_scoreboard['white'] += 1
-        elif winner == 'tie':
-            self.current_scoreboard['tie'] += 1
+        if winner == 'Black':
+            self.current_scoreboard['Black'] += 1
+        elif winner == 'White':
+            self.current_scoreboard['White'] += 1
+        elif winner == 'Tie':
+            self.current_scoreboard['Tie'] += 1
         else:
             raise ValueError('Could not understand ' + winner + ' as a winner')
 
@@ -23,5 +23,5 @@ class Scoreboard:
         """
           :return: The scoreboard in its initial state
         """
-        self.current_scoreboard = {'black': 0, 'white': 0, 'tie': 0}
+        self.current_scoreboard = {'Black': 0, 'White': 0, 'Tie': 0}
         return self.current_scoreboard
