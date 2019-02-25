@@ -244,5 +244,6 @@ class TestGUI(unittest.TestCase):
         self.assertEqual(self.ex.results, {'Black': 0, 'White': 1, 'Tie': 0})
         self.assertEqual(self.ex.turn_label.text(), "Black's turn ")
 
+
 if __name__ == '__main__':
     unittest.main()

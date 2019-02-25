@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPixmap
 import sys
+import re
 from gomoku.newQLabel import QLabel_new
 from gomoku.chessboard import Chessboard
 from gomoku.gameLogic import GameLogic
@@ -154,7 +155,27 @@ class GUI(QtWidgets.QWidget):
             self.results = self.score_board.set_new_result('Tie')
 
     def player_clicked(self, label_name):
-        pass
+        pattern = re.compile(r'(.*)_(.*)')
+        result = pattern.match(label_name)
+        row = self.str_to_int[result.group(1)]
+        column = self.str_to_int[result.group(2)]
+        if self.board_matrix[row][column] == 0:
+            self.chessboard.move(row, column, self.current_player)
+            self.board_matrix = self.chessboard.chessboard_matrix
+            self.current_player = self.chessboard.get_current_player()
+            if self.current_player == 'Black':
+                self.turn_label.setText("Black's turn ")
+            elif self.current_player == 'White':
+                self.turn_label.setText("White's turn ")
+            else:
+                raise ValueError('invalid color')
+
+            if self.game_logic.has_winner(self.board_matrix, row, column):
+                message = self.game_logic.winner + ' won!'
+                self.results = self.score_board.set_new_result(self.game_logic.winner)
+                if self.show_winner(message):
+                    self.setup_new_game()
+                    return
 
     def show_winner(self, message):
         self.buttonReply = QtWidgets.QMessageBox.information(self, "Result", message,
