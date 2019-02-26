@@ -70,6 +70,12 @@ class GameLogic:
             return False
 
     def check_lower_diagonal(self, chessboard_matrix, last_move_row, last_move_col):
+        """
+
+        Check five-in-a-row in the lower diagonal direction
+        :param chessboard_matrix: Current chessboard matrix, last_move_row: Row number of the last move, last_move_col: Column number of the last move
+        :return: True or False
+        """
         left_count = 0
         right_count = 0
         stone = chessboard_matrix[last_move_row][last_move_col]
@@ -97,6 +103,12 @@ class GameLogic:
             return False
 
     def check_upper_diagonal(self, chessboard_matrix, last_move_row, last_move_col):
+        """
+
+        Check five-in-a-row in the upper diagonal direction
+        :param chessboard_matrix: Current chessboard matrix, last_move_row: Row number of the last move, last_move_col: Column number of the last move
+        :return: True or False
+        """
         left_count = 0
         right_count = 0
         stone = chessboard_matrix[last_move_row][last_move_col]
@@ -124,6 +136,12 @@ class GameLogic:
             return False
 
     def has_winner(self, chessboard_matrix, last_move_row, last_move_col):
+        """
+
+        Check if the game has a winner. If there is a winner, change the winner variable to "Black" or "White".
+        :param chessboard_matrix: Current chessboard matrix, last_move_row: Row number of the last move, last_move_col: Column number of the last move
+        :return: True or False
+        """
         if (self.check_horizontal(chessboard_matrix, last_move_row, last_move_col)
                 or self.check_vertical(chessboard_matrix, last_move_row, last_move_col)
                 or self.check_upper_diagonal(chessboard_matrix, last_move_row, last_move_col)
